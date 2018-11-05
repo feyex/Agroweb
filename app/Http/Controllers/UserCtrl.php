@@ -32,6 +32,7 @@ class UserCtrl extends Controller
         $user->username = $request->username;
         $user->email = $request->email;
         $user->password =$hasher->make($request->password) ;
+        // $user->api_key = $request->api_key;
         $user->save();
 
         if ($user->save () )

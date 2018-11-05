@@ -19,6 +19,7 @@ class user_reg extends Model
         'username', 
         'email', 
         'password', 
+        'api_token',
        
       
     ];

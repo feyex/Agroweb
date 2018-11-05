@@ -36,9 +36,24 @@ class Authenticate
     public function handle($request, Closure $next, $guard = null)
     {
         if ($this->auth->guard($guard)->guest()) {
-            return response('Unauthorized.', 401);
-        }
+            if ($request->has('api_key')) {
+                $key = $request->input('api_key');
+                
+                $check_key = user_reg::where('api_key', $key)->first();
 
+                if ($check_key == null) {
+                    $res['success'] = false;
+                    $res['message'] = 'Permission not allowed!';
+                    return response($res);
+                }
+            }
+             else {
+                $res['success'] = false;
+                $res['message'] = 'Login please!';
+                return response($res);
+                }
+        }
         return $next($request);
+
     }
 }

@@ -21,3 +21,9 @@ $router->get('/key', function() {
 
 //for user registration
 $router->post ('/newuser', 'UserCtrl@register');
+
+//for user login
+$router->post('login','AuthCtrl@authentication');
+
+//for user logout
+$router->get('logout/{user_id}','AuthCtrl@logout');
