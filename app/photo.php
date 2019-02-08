@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class user_reg extends Model
+class photo extends Model
 {
 //use Authenticatable, Authorizable;
 
@@ -14,13 +14,10 @@ class user_reg extends Model
      * @var array
      */
 
-    protected $table = 'user';
+    protected $table = 'photo';
     protected $fillable = [
-        'username', 
-        'email', 
-        'password', 
-        'api_token',
-       
+        'photo_title', 
+        'image', 
       
     ];
 
@@ -30,8 +27,8 @@ class user_reg extends Model
      * @var array
      */
 
-    public function students(){
-        return $this->hasOne('App\student');
-     }
+    // public function students(){
+    //     return $this->hasOne('App\student');
+    //  }
     
 }

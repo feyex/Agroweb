@@ -26,4 +26,10 @@ $router->post ('/newuser', 'UserCtrl@register');
 $router->post('login','AuthCtrl@authentication');
 
 //for user logout
-$router->get('logout/{user_id}','AuthCtrl@logout');
+$router->get('logout/{id}','AuthCtrl@logout');
+
+//for student registration
+$router->post ('/student', 'StudentCtrl@reg_student');
+
+//for photo upload
+$router->post ('/photo', 'photoCtrl@image');

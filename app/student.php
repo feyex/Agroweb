@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class user_reg extends Model
+class student extends Model
 {
 //use Authenticatable, Authorizable;
 
@@ -14,13 +14,21 @@ class user_reg extends Model
      * @var array
      */
 
-    protected $table = 'user';
+    protected $table = 'student';
     protected $fillable = [
-        'username', 
-        'email', 
-        'password', 
-        'api_token',
-       
+        'firstname', 
+        'lastname', 
+        'phone', 
+        'sex',
+        'course',
+        'school',
+        'interest',
+        'address',
+        'state',
+        'country',
+        'image',
+        'bio_info',
+        'experience',
       
     ];
 
@@ -29,9 +37,9 @@ class user_reg extends Model
      *
      * @var array
      */
-
+  
     public function students(){
-        return $this->hasOne('App\student');
-     }
+      return $this->belongsTo('App\user_reg');
+   }
     
 }
