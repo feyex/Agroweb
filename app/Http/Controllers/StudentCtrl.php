@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\user_reg;
 use App\student;
 use illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller as Controller;
@@ -21,6 +22,13 @@ class StudentCtrl extends Controller
         //
     }
 
+    public function index()
+    {
+        $student_data = student::all();
+
+        return $student_data;
+    }
+
     public function reg_student (Request $request) 
     {
         $response = 
@@ -35,84 +43,16 @@ class StudentCtrl extends Controller
                 'interest' => 'required',
                 'address' => 'required',
                 'state' => 'required',
-                'country' => 'required',
-                'image' => 'required'
+                'country' => 'required'
+                // 'image' => 'required'
 
             ]
                 
             );
+        
+        $users = $request->input('user_id');   
+        $user_id = user_reg::where('user_id',$users)->value('user_id');
 
-    
-            // if($request->hasFile('image')) { 
-
-            //     $this->validate($request, [
-            //         'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            //       ]);          
-    
-            //     $allowedfileExtension = ['pdf','jpg','png','docx'];
-            //     $image = $request->file('image');
-    
-            //     $extension = $image->getClientOriginalExtension();
-    
-            //     $check = in_array($extension,$allowedfileExtension);
-    
-            //     if ($check) {
-            //         # code...
-                    
-            //         $filename = time() . '.' . $image->getClientOriginalExtension();
-            //         Connected::make($image)->resize(160, 160)->save( public_path() . '\\storage\\app\\image'. $filename );
-            //         $person->image = $filename;
-    
-                   
-            //         echo "Upload Successfully";
-    
-                    
-            //             $user = new student();
-            //             $user->firstname = $request->firstname;
-            //             $user->lastname = $request->lastname;
-            //             $user->phone = $request->phone;
-            //             $user->sex = $request->sex;
-            //             $user->course = $request->course;
-            //             $user->school = $request->school;
-            //             $user->interest = $request->interest;
-            //             $user->address = $request->address;
-            //             $user->state = $request->state;
-            //             $user->country = $request->country;
-            //             $user->image = $request->image;
-            //             $user->bio_info = $request->bio_info;
-            //             $user->experience = $request->experience;
-                        
-            //             $user->save();
-            //             if ($user->save () )
-            //             {
-            //                 $response = response ()->json(
-            //                     [
-            //                         'response' => [
-            //                             'created' =>true,
-            //                             'student_id' =>$user->id,
-            //                             'message' => "registration successful"
-            //                         ]
-            //                         ],201
-            //                 );
-            //             }
-
-            //     }
-            //     else {
-            //         return response()->json(['status' => 'error','message' => "registration not successful"],401);	
-            //       } 
-            // }user = new Connected();   
-
-           
-    
-    
-            // $profile->talent = $request->input('talent');
-            // $profile->username = $request->input('username');
-            // $profile->phone = $request->input('phone');
-            
-            // $user->connected()->save($profile);
-    
-
-      
         $user = new student();
         $user->firstname = $request->firstname;
         $user->lastname = $request->lastname;
@@ -124,8 +64,7 @@ class StudentCtrl extends Controller
         $user->address = $request->address;
         $user->state = $request->state;
         $user->country = $request->country;
-        // $user = Request::file(‘image’);
-        // Storage::put($user->getClientOriginalName(), File::get($user));
+
         if ($request->hasFile('image')) {
                 
             $image = $request->file('image');
@@ -137,11 +76,14 @@ class StudentCtrl extends Controller
       
         $user->bio_info = $request->bio_info;
         $user->experience = $request->experience;
+        $user->user_id = $user_id;
+
         
         $user->save();
 
         if ($user->save () )
         {
+            
             $response = response ()->json(
                 [
                     'response' => [
@@ -155,5 +97,35 @@ class StudentCtrl extends Controller
         else {
           return response()->json(['status' => 'error','message' => "registration not successful"],401);	
         } 
+    }
+
+    public function show($id)
+    {
+        $student_data = student::findOrFail($id);
+        return $student_data;
+    }
+
+    public function update(Request $request, $id)
+    {
+        # code...
+  
+        $std = student::findOrFail($id);
+  
+        if ($std->fill($request->all())->save()) {
+              # code...
+              return response()->json(['success' => true]);
+        }
+  
+        return response()->json(['status' => 'failed']);
+    }
+  
+
+    public function destroy($id)
+    {
+      # code...
+      $student_data = student::findOrFail($id);
+      $student_data->delete();
+
+      return response()->json(['success' => true]);
     }
 }

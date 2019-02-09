@@ -29,7 +29,11 @@ $router->post('login','AuthCtrl@authentication');
 $router->get('logout/{id}','AuthCtrl@logout');
 
 //for student registration
+$router->get ('/student', 'StudentCtrl@index');
 $router->post ('/student', 'StudentCtrl@reg_student');
+$router->get ('student/{id}', 'StudentCtrl@show');
+$router->put ('student/{id}', 'StudentCtrl@update');
+$router->delete ('student/{id}', 'StudentCtrl@destroy');
 
 //for photo upload
 $router->post ('/photo', 'photoCtrl@image');

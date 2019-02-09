@@ -38,8 +38,8 @@ class student extends Model
      * @var array
      */
   
-    public function students(){
-      return $this->belongsTo('App\user_reg');
+    public function user_reg(){
+      return $this->belongsTo('App\user_reg', 'foreign_key');
    }
     
 }

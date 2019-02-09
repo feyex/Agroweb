@@ -30,8 +30,8 @@ class user_reg extends Model
      * @var array
      */
 
-    public function students(){
-        return $this->hasOne('App\student');
+    public function student(){
+        return $this->hasOne('App\user_reg');
      }
     
 }
