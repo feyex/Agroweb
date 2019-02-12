@@ -26,6 +26,8 @@ class UserCtrl extends Controller
                 'password' => 'required'
             ]
             );
+
+            
         
         $hasher = app()->make('hash');
         $user = new user_reg();

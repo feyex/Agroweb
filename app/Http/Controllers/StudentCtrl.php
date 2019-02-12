@@ -50,8 +50,8 @@ class StudentCtrl extends Controller
                 
             );
         
-        $users = $request->input('user_id');   
-        $user_id = user_reg::where('user_id',$users)->value('user_id');
+        // $users = $request->input('user_id');   
+        // $user_id = user_reg::where('user_id',$users)->value('user_id');
 
         $user = new student();
         $user->firstname = $request->firstname;
@@ -76,7 +76,7 @@ class StudentCtrl extends Controller
       
         $user->bio_info = $request->bio_info;
         $user->experience = $request->experience;
-        $user->user_id = $user_id;
+        // $user->user_id = $user_id;
 
         
         $user->save();

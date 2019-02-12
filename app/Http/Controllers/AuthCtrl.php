@@ -60,10 +60,10 @@ class AuthCtrl extends Controller
 
   public function logout(Request $request, $id) {
 
-    $user = user_reg::where('user_id', $id)->first();
+    $user = user_reg::where('id', $id)->first();
 
     if(count($user)>0){
-      user_reg::where('user_ id', $id)->update(['api_key' => ""]);
+      user_reg::where('id', $id)->update(['api_key' => ""]);
         return response()->json(['status' => 'success','logout' => "true"]);
     }
     else {
